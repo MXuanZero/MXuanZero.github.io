@@ -142,15 +142,8 @@ template {
 [hidden] {
   display: none;
 }
-@font-face {
-  font-family: 'lanting';
-  src: url("../fonts/lanting/lanting.eot"); /* IE9 */
-  src: url("../fonts/lanting/lanting.eot?#iefix") format('embedded-opentype'), /* IE6-IE8 */ url("../fonts/lanting/lanting.woff2") format('woff2'), url("../fonts/lanting/lanting.woff") format('woff'), url("../fonts/lanting/lanting.ttf") format('truetype'); /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
-  font-weight: 300;
-  font-display: swap;
-}
 html {
-  font-family: 'Microsoft Jhenghei', Lantinghei SC, 'lanting', PingFang SC, Seguo UI, Microsoft Yahei, Arial;
+  font-family: 'Microsoft Yahei', Seguo UI, Arial;
 }
 html::-webkit-scrollbar {
   width: 8px;
@@ -1370,4 +1363,23 @@ header label {
 .post-content pre .keyword,
 .post-content pre .javascript .function {
   color: #8959a8;
+}
+.gutter {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select: none;
+}
+.post-content figure.highlight figcaption {
+  text-align: left;
+}
+.post-content code {
+  font-size: 16px;
+}
+.footer {
+  height: 3rem;
+  line-height: 1.2rem;
+}
+footer {
+  text-align: right;
 }
