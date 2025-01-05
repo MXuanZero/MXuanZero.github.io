@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="MXuanZero">
+
+
+
+
+
+<title>DAPLink固件编译 | MXuan&#39;s Blog</title>
+
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+    <script>
+        // this function is used to check current theme before page loaded.
+        (() => {
+            const currentTheme = window.localStorage && window.localStorage.getItem('theme') || '';
+            const isDark = currentTheme === 'dark';
+            const pagebody = document.getElementsByTagName('body')[0]
+            if (isDark) {
+                pagebody.classList.add('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Dark"
+            } else {
+                pagebody.classList.remove('dark-theme');
+                // mobile
+                document.getElementById("mobile-toggle-theme").innerText = "· Light"
+            }
+        })();
+    </script>
+
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">MXuan&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">帖子</a>
+                
+                    <a class="menu-item" href="/">关于</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">MXuan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">帖子</a>
+                
+                    <a class="menu-item" href="/">关于</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+            <div class="main">
+                <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    var tocbot_timer;
+    var DEPTH_MAX = 6; // 为 6 时展开所有
+    var tocbot_default_config = {
+        tocSelector: '.tocbot-list',
+        contentSelector: '.post-content',
+        headingSelector: 'h1, h2, h3, h4, h5',
+        orderedList: false,
+        scrollSmooth: true,
+        onClick: extend_click,
+    };
+
+    function extend_click() {
+        clearTimeout(tocbot_timer);
+        tocbot_timer = setTimeout(function() {
+            tocbot.refresh(obj_merge(tocbot_default_config, {
+                hasInnerContainers: true
+            }));
+        }, 420); // 这个值是由 tocbot 源码里定义的 scrollSmoothDuration 得来的
+    }
+
+    document.ready(function() {
+        tocbot.init(obj_merge(tocbot_default_config, {
+            collapseDepth: 1
+        }));
+    });
+
+    function expand_toc() {
+        var b = document.querySelector('.tocbot-toc-expand');
+        var expanded = b.getAttribute('data-expanded');
+        expanded ? b.removeAttribute('data-expanded') : b.setAttribute('data-expanded', true);
+        tocbot.refresh(obj_merge(tocbot_default_config, {
+            collapseDepth: expanded ? 1 : DEPTH_MAX
+        }));
+        b.innerText = expanded ? 'Expand all' : 'Collapse all';
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+    function obj_merge(target, source) {
+        for (var item in source) {
+            if (source.hasOwnProperty(item)) {
+                target[item] = source[item];
+            }
+        }
+        return target;
+    }
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">DAPLink固件编译</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">MXuanZero</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">2025-01-05&nbsp;&nbsp;11:38:20</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <p>首先需要安装 git、python、pip 等软件，教程网上有很多这里不赘述，安装完毕后记得更新 pip。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade pip</span><br></pre></td></tr></table></figure>
+
+<p>用 Git 拉取 DAPLink 的最新版本，python要安装 virtualenv，并在 DAPLink 的目录下创建虚拟环境。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pip install virtualenv</span><br><span class="line">git <span class="built_in">clone</span> https://github.com/ARMmbed/DAPLink.git</span><br><span class="line"><span class="built_in">cd</span> DAPLink</span><br><span class="line">virtualenv venv</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后启用虚拟环境。我用的是 powershell7 终端，所以用 .ps1 结尾的脚本，这里根据采用的终端选择对应的脚本即可。 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># linux</span></span><br><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows git bash</span></span><br><span class="line"><span class="built_in">source</span> venv/Scripts/activate</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows powershell7 (不建议使用)</span></span><br><span class="line">.\venv\Scripts\activate.ps1</span><br></pre></td></tr></table></figure>
+
+<p>前方出现 (venv) 后表明启用成功。</p>
+<p><img src="/images/img-DAPLink.png" alt="编译"></p>
+<p>更新虚拟环境的 pip，并安装需要的包。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python.exe -m pip install --upgrade pip</span><br><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+
+<p>创建工程，我是用的是 arm-none-eabi-gcc 编译，所以选择 make_gcc_arm，也可以选 cmake_gcc_arm。用 keil5 的话改为 uvision5 即可。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">progen generate -t make_gcc_arm -p stm32f103xb_bl stm32f103xb_stm32f103rb_if</span><br><span class="line">progen generate -t cmake_gcc_arm -p stm32f103xb_bl stm32f103xb_stm32f103rb_if</span><br><span class="line">progen generate -t uvision5 -p stm32f103xb_bl stm32f103xb_stm32f103rb_if</span><br></pre></td></tr></table></figure>
+
+<p>进入 stm32f103xb_stm32f103rb_if 文件，使用 make 开始编译。我用 vscode 的编写代码，需要生成 compile_commands.json，在 windows 系统使用 compiledb 生成文件，在 linux 中使用 bear 生成。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># linux</span></span><br><span class="line">bear -- make -j12</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows</span></span><br><span class="line">compiledb -- make -j12</span><br></pre></td></tr></table></figure>
+
+<p>windows 用 make 似乎无法生成有效的 compile_commands.json 文件，我没有仔细研究是什么地方出错，直接转cmake了。在 linux 上不会出现这种错误。</p>
+<p>编译前后会运行两个 python 写的脚本文件，如果采用 cmake 编译会直接用默认软件打开。。。</p>
+<p><strong>因此能用 linux 开发就用 linux 开发，windows 真不适合用 arm-none-eabi-gcc 开发。</strong></p>
+<p>使用 PowerShell7 会出现找不到 <code>version_git.h</code> 这个错误，需要在 stm32f103xb_bl 工程目录下运行 pre_build_script.py。因为这个工具使用相对路径写的，生成文件的路径是 <code>..\..\..\source\daplink\version_git.h</code>，如果在别的地方运行会将 <code>version_git.h</code> 生成到其他地方。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fatal error: version_git.h: No such file or directory </span><br><span class="line">	34 | <span class="comment">#include &quot;version_git.h&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>用 gcc arm 10.3 可以顺利编译，如果用 gcc arm 11.2 会报 SysTick 错误，如果用 11.3 或 12.2 编译，会报这样的错误。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Linking build/stm32f103xb_stm32f103rb_if.elf</span><br><span class="line">d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7-m/nofp\libc_nano.a(libc_a-closer.o): <span class="keyword">in</span> <span class="keyword">function</span> `_close_r<span class="string">&#x27;:</span></span><br><span class="line"><span class="string">closer.c:(.text._close_r+0xc): warning: _close is not implemented and will always fail</span></span><br><span class="line"><span class="string">d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7-m/nofp\libc_nano.a(libc_a-lseekr.o): in function `_lseek_r&#x27;</span>:</span><br><span class="line">lseekr.c:(.text._lseek_r+0x10): warning: _lseek is not implemented and will always fail</span><br><span class="line">d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7-m/nofp\libc_nano.a(libc_a-readr.o): <span class="keyword">in</span> <span class="keyword">function</span> `_read_r<span class="string">&#x27;:</span></span><br><span class="line"><span class="string">readr.c:(.text._read_r+0x10): warning: _read is not implemented and will always fail</span></span><br><span class="line"><span class="string">d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/thumb/v7-m/nofp\libc_nano.a(libc_a-writer.o): in function `_write_r&#x27;</span>:</span><br><span class="line">writer.c:(.text._write_r+0x10): warning: _write is not implemented and will always fail</span><br><span class="line">d:/_environment/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld.exe: warning: build/stm32f103xb_stm32f103rb_if.elf has a LOAD segment with RWX permissions</span><br><span class="line">Memory region         Used Size  Region Size  %age Used</span><br><span class="line">    m_interrupts:          1 KB         1 KB    100.00%</span><br><span class="line">          m_text:         78 KB        78 KB    100.00%</span><br><span class="line">        m_cfgrom:          10 B         1 KB      0.98%</span><br><span class="line">          m_data:       11320 B      20224 B     55.97%</span><br><span class="line">        m_cfgram:         142 B        256 B     55.47%</span><br><span class="line">collect2.exe: error: ld returned 1 <span class="built_in">exit</span> status</span><br><span class="line">make: *** [makefile:283: build/stm32f103xb_stm32f103rb_if.elf] Error 1</span><br></pre></td></tr></table></figure>
+
+<p>需要在 <code>source\daplink\sdk_stub.c</code> 中添加以下代码。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">__WEAK <span class="type">int</span> _isatty(<span class="type">int</span> fd) &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">__WEAK <span class="type">int</span> _write(<span class="type">int</span> fd, <span class="type">char</span> *ptr, <span class="type">int</span> len) &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">__WEAK <span class="type">int</span> _close(<span class="type">int</span> fd) &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">__WEAK <span class="type">int</span> _lseek(<span class="type">int</span> fd, <span class="type">int</span> ptr, <span class="type">int</span> dir) &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">__WEAK <span class="type">int</span> _read(<span class="type">int</span> fd, <span class="type">char</span> *ptr, <span class="type">int</span> len) &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>还需修改 records&#x2F;tools&#x2F;gcc_arm.yaml 在 ld_flags 下增加 <code>-Wl,--no-warn-rwx-segment</code>。重新使用 <code>progen</code> 生成工程即可完成编译。</p>
+<h3 id="CreateProcess-failed解决方法"><a href="#CreateProcess-failed解决方法" class="headerlink" title="CreateProcess failed解决方法"></a>CreateProcess failed解决方法</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">process_begin: CreateProcess(<span class="literal">NULL</span>, env python .\DAPLink\tools\pre_build_script.py, ...) failed.</span><br><span class="line">make: makefile:<span class="number">256</span>: pipe: No error</span><br></pre></td></tr></table></figure>
+
+<p>这个错误是因为 Makefile 中使用了 shell 运行 python 文件，而 powershell7 不完全支持 bash 命令。换成 Git Bash 敲命令行什么事都没有。</p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/daplink/"># daplink</a>
+                    
+                        <a href="/tags/compile/"># compile</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2025/01/05/edgetx-compile/">EdgeTX固件编译</a>
+            
+            
+            <a class="next" rel="next" href="/2025/01/05/hello-world/">Hello World</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+            </div>
+            <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© MXuanZero | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+</body>
+
+</html>

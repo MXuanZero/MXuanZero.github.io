@@ -13,7 +13,7 @@
 
 
 
-<title>Hello World | MXuan&#39;s Blog</title>
+<title>EdgeTX固件编译 | MXuan&#39;s Blog</title>
 
 
 
@@ -225,7 +225,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">Hello World</h1>
+            <h1 class="post-title">EdgeTX固件编译</h1>
             
                 <div class="post-meta">
                     
@@ -234,7 +234,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">2025-01-05&nbsp;&nbsp;10:02:05</a>
+                        Date: <a href="#">2025-01-05&nbsp;&nbsp;11:38:31</a>
                         </span>
                     
                     
@@ -243,104 +243,24 @@
         </header>
 
         <div class="post-content">
-            <h2 id="行级元素"><a href="#行级元素" class="headerlink" title="行级元素"></a>行级元素</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://google.com/">超链接</a></li>
-<li><strong>加粗</strong></li>
-<li><em>倾斜</em></li>
-<li><u>下划线</u></li>
-<li><del>删除线</del></li>
-<li>快捷键</li>
-<li>行级代码<code>hello</code></li>
-<li><mark>高亮</mark></li>
-<li>通过输入 : 加字母触发表情字符搜索 😄 😆 😵 😭 😰 😅  😢 😤 😍 😌👍 👎 💯 👏 🔔 🎁 ❓ 💣 ❤️ ☕️ 🌀 🙇 💋 🙏 💢</li>
+            <p><strong>温馨提示1:</strong> 此方法在 windows 下使用只能生成 compile_commands.json 文件实现跳转，<strong>无法实现编译</strong>。在 Linux 下能完成编译。</p>
+<p><strong>温馨提示2:</strong> 此方法只是编译遥控器固件，不包括其他软件。</p>
+<hr>
+<ul>
+<li><strong>编辑器:</strong> vs code</li>
+<li><strong>工具:</strong> git、python、arm-none-eabi、cmake</li>
+<li><strong>终端:</strong> git-bash（powershell 需要自行安装 grep）</li>
 </ul>
-<h2 id="标题块"><a href="#标题块" class="headerlink" title="标题块"></a>标题块</h2><h2 id="有序、无序、任务列表"><a href="#有序、无序、任务列表" class="headerlink" title="有序、无序、任务列表"></a>有序、无序、任务列表</h2><h3 id="无序列表"><a href="#无序列表" class="headerlink" title="无序列表"></a>无序列表</h3><ul>
-<li>Java<ul>
-<li>Spring<ul>
-<li>IoC</li>
-<li>AOP</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Go<ul>
-<li>gofmt</li>
-<li>Wide</li>
-</ul>
-</li>
-<li>Node.js<ul>
-<li>Koa</li>
-<li>Express</li>
-</ul>
-</li>
-</ul>
-<h3 id="有序列表"><a href="#有序列表" class="headerlink" title="有序列表"></a>有序列表</h3><ol>
-<li>Node.js<ol>
-<li>Express</li>
-<li>Koa</li>
-<li>Sails</li>
-</ol>
-</li>
-<li>Go<ol>
-<li>gofmt</li>
-<li>Wide</li>
-</ol>
-</li>
-<li>Java<ol>
-<li>Latke</li>
-<li>IDEA</li>
-</ol>
-</li>
-</ol>
-<h3 id="任务列表"><a href="#任务列表" class="headerlink" title="任务列表"></a>任务列表</h3><ul>
-<li><input checked="" disabled="" type="checkbox"> 发布思源</li>
-<li><input disabled="" type="checkbox"> 预约牙医</li>
-</ul>
-<h2 id="引述块"><a href="#引述块" class="headerlink" title="引述块"></a>引述块</h2><blockquote>
-<p>注意不是内容块引用，而是引述块（Blockquote）。</p>
-</blockquote>
-<h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>如果在 ``` 后面跟随语言名称，可以有语法高亮的效果哦，比如：</p>
-<h3 id="演示-Go-代码高亮"><a href="#演示-Go-代码高亮" class="headerlink" title="演示 Go 代码高亮"></a>演示 Go 代码高亮</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">&quot;Hello, 世界&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆项目和子项目</span></span><br><span class="line">git <span class="built_in">clone</span> --recurse-submodules https://github.com/EdgeTX/edgetx.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows（2选1）</span></span><br><span class="line"><span class="built_in">cd</span> edgetx &amp;&amp; <span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake -G <span class="string">&quot;MinGW Makefiles&quot;</span> -Wno-dev -DDEFAULT_MODE=2 -DPCB=X10 -DGVARS=YES -DPCBREV=TX16S -DCMAKE_BUILD_TYPE=Release ../</span><br><span class="line"></span><br><span class="line"><span class="comment"># linux（2选1）</span></span><br><span class="line"><span class="built_in">cd</span> edgetx &amp;&amp; <span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake -Wno-dev -DDEFAULT_MODE=2 -DGVARS=YES -DPCB=X10 -DPCBREV=TX16S -DCMAKE_BUILD_TYPE=Release ../</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最后</span></span><br><span class="line">make arm-none-eabi</span><br></pre></td></tr></table></figure>
 
-<h3 id="演示-Java-高亮"><a href="#演示-Java-高亮" class="headerlink" title="演示 Java 高亮"></a>演示 Java 高亮</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在 edgetx 项目的根目录创建 .vscode&#x2F;c_cpp_properties.json 文件，复制以下内容到 json 文件中。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;edgetx-arm-none-eabi&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;compileCommands&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./build/arm-none-eabi/compile_commands.json&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">        </span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">4</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h2><table>
-<thead>
-<tr>
-<th>header 1</th>
-<th>header 2</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>cell 1</td>
-<td>cell 2</td>
-</tr>
-<tr>
-<td>cell 3</td>
-<td>cell 4</td>
-</tr>
-<tr>
-<td>cell 5</td>
-<td>cell 6</td>
-</tr>
-</tbody></table>
-<h2 id="HTML-块"><a href="#HTML-块" class="headerlink" title="HTML 块"></a>HTML 块</h2><div>
-<ruby>
-你<rt>nǐ</rt>
-　好<rt>　hǎo</rt>
-　世<rt>　shì</rt>
-　界<rt>　jiè</rt>
-</ruby><br>
-Hello World
-</div>
+<p>至此用 VS Code 打开 edgetx 就可以跳转了。</p>
+<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>使用 linux 操作系统（windows下无法编译，原因未知）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在edgetx目录下创建python虚拟环境(需要自行安装)</span></span><br><span class="line">virtualenv venv</span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br><span class="line"><span class="comment"># 更新pip</span></span><br><span class="line">pip install --upgrade pip</span><br><span class="line"><span class="comment"># 下载包</span></span><br><span class="line">pip install pillow lz4 jinja2</span><br></pre></td></tr></table></figure>
 
-<h2 id="分隔线"><a href="#分隔线" class="headerlink" title="分隔线"></a>分隔线</h2><hr>
-<h2 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h2><p>$$<br>\frac{1}{  \Bigl(\sqrt{\phi \sqrt{5}}-\phi\Bigr) e^{  \frac25 \pi}} &#x3D; 1+\frac{e^{-2\pi}} {1+\frac{e^{-4\pi}} {    1+\frac{e^{-6\pi}}    {1+\frac{e^{-8\pi}}{1+\cdots}}  } }<br>$$</p>
-<h2 id="IFrame"><a href="#IFrame" class="headerlink" title="IFrame"></a>IFrame</h2><iframe src="https://player.bilibili.com/player.html?bvid=BV1ov41187qM&amp;page=1&amp;high_quality=1&amp;as_wide=1&amp;allowfullscreen=true&amp;aid=247401039&amp;cid=319662466&amp;autoplay=0" data-src="//player.bilibili.com/player.html?aid=247401039&amp;bvid=BV1ov41187qM&amp;cid=319662466&amp;page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true" style="width: 981px; height: 440px;" sandbox="allow-top-navigation-by-user-activation allow-same-origin allow-forms allow-scripts allow-popups"></iframe>
-
-<h2 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h2><ul>
-<li>感谢思源笔记的排版元素样例</li>
-</ul>
+<p>python 虚拟环境配置完毕后需要<strong>将 build 目录删除</strong>，重新 cmake 构建。因为 cmake 生成的 makefile 使用绝对路径，不重新构建依然采用原来的 python 环境。</p>
 
         </div>
 
@@ -351,7 +271,9 @@ Hello World
                 <span class="tag">
                     
                     
-                        <a href="/tags/Test/"># Test</a>
+                        <a href="/tags/daplink/"># daplink</a>
+                    
+                        <a href="/tags/compile/"># compile</a>
                     
                         
                 </span>
@@ -364,8 +286,8 @@ Hello World
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2025/01/05/daplink-compile/">DAPLink固件编译</a>
             
+            <a class="next" rel="next" href="/2025/01/05/daplink-compile/">DAPLink固件编译</a>
             
         </section>
 
