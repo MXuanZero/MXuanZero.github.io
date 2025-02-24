@@ -13,7 +13,7 @@
 
 
 
-<title>EdgeTX固件编译 | MXuan&#39;s Blog</title>
+<title>code-arduino | MXuan&#39;s Blog</title>
 
 
 
@@ -225,7 +225,7 @@
     
     <article class="post-wrap">
         <header class="post-header">
-            <h1 class="post-title">EdgeTX固件编译</h1>
+            <h1 class="post-title">code-arduino</h1>
             
                 <div class="post-meta">
                     
@@ -234,7 +234,7 @@
 
                     
                         <span class="post-time">
-                        Date: <a href="#">2025-01-05&nbsp;&nbsp;11:38:31</a>
+                        Date: <a href="#">2025-01-24&nbsp;&nbsp;20:10:00</a>
                         </span>
                     
                     
@@ -243,24 +243,24 @@
         </header>
 
         <div class="post-content">
-            <p><strong>温馨提示1:</strong> 此方法在 windows 下使用只能生成 compile_commands.json 文件实现跳转，<strong>无法实现编译</strong>。在 Linux 下能完成编译。</p>
-<p><strong>温馨提示2:</strong> 此方法只是编译遥控器固件，不包括其他软件。</p>
-<hr>
-<ul>
-<li><strong>编辑器:</strong> vs code</li>
-<li><strong>工具:</strong> git、python、arm-none-eabi、cmake</li>
-<li><strong>终端:</strong> git-bash（powershell 需要自行安装 grep）</li>
+            <h1 id="从车-Arduino-编译环境"><a href="#从车-Arduino-编译环境" class="headerlink" title="从车 Arduino 编译环境"></a>从车 Arduino 编译环境</h1><h2 id="VS-Code-Arduino-插件安装"><a href="#VS-Code-Arduino-插件安装" class="headerlink" title="VS Code Arduino 插件安装"></a>VS Code Arduino 插件安装</h2><p>打开 VS Code 拓展，搜索 Arduino 安装即可。</p>
+<p><img src="/./_assets/image-20250224195724070-1740399092601-1.png" alt="image-20250224195724070"></p>
+<h2 id="Arduino-IDE-安装"><a href="#Arduino-IDE-安装" class="headerlink" title="Arduino IDE 安装"></a>Arduino IDE 安装</h2><p>在 Arduino 官网，下载 Arduino IDE 1.x 版本。VS Code 的 Arduino 插件目前不支持 Arduino IDE 2.x<br>版本，未来也不打算支持。</p>
+<blockquote>
+<p>如果遇到这个提示，千万不要点 Use bundled arduino-cli。如果不小心点到了，卸载插件重装即<br>可。</p>
+<p><img src="/./_assets/image-20250224195717156-1740399099150-3.png" alt="image-20250224195717156"></p>
+</blockquote>
+<h2 id="Arduino-编译"><a href="#Arduino-编译" class="headerlink" title="Arduino 编译"></a>Arduino 编译</h2><p>用 VS code 打开项目文件夹，点开 .ino 文件选择对应的板子。开始编译</p>
+<p><img src="/./_assets/image-20250224195635779-1740399102705-5.png" alt="image-20250224195635779"></p>
+<p>如果出现以下提示，说明编译环境配置成功，但无法找到库路径。下面进行库路径配置。</p>
+<p><img src="/./_assets/image-20250224195655236-1740399106257-7.png" alt="image-20250224195655236"></p>
+<p>用 Arduino IDE 打开 .ino 文件，修改项目文件夹位置，再次点击编译即可。</p>
+<p><img src="/./_assets/image-20250224195823471-1740399109654-9.png" alt="image-20250224195823471"></p>
+<p><img src="/./_assets/image-20250224195749098-1740399113687-11.png" alt="image-20250224195749098"></p>
+<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><ul>
+<li>如果后来 VS Code 的 Arduino 插件支持 2.x 版本的 Arduino IDE 则使用 2.x 版本。</li>
+<li>**联系方式：**<a href="mailto:&#77;&#x58;&#117;&#97;&#x6e;&#x5f;&#x30;&#x40;&#49;&#54;&#x33;&#46;&#99;&#x6f;&#109;">MXuan_0@163.com</a></li>
 </ul>
-<h2 id="跳转"><a href="#跳转" class="headerlink" title="跳转"></a>跳转</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆项目和子项目</span></span><br><span class="line">git <span class="built_in">clone</span> --recurse-submodules https://github.com/EdgeTX/edgetx.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># windows（2选1）</span></span><br><span class="line"><span class="built_in">cd</span> edgetx &amp;&amp; <span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake -G <span class="string">&quot;MinGW Makefiles&quot;</span> -Wno-dev -DDEFAULT_MODE=2 -DPCB=X10 -DGVARS=YES -DPCBREV=TX16S -DCMAKE_BUILD_TYPE=Release ../</span><br><span class="line"></span><br><span class="line"><span class="comment"># linux（2选1）</span></span><br><span class="line"><span class="built_in">cd</span> edgetx &amp;&amp; <span class="built_in">mkdir</span> build &amp;&amp; <span class="built_in">cd</span> build</span><br><span class="line">cmake -Wno-dev -DDEFAULT_MODE=2 -DGVARS=YES -DPCB=X10 -DPCBREV=TX16S -DCMAKE_BUILD_TYPE=Release ../</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最后</span></span><br><span class="line">make arm-none-eabi</span><br></pre></td></tr></table></figure>
-
-<p>然后在 edgetx 项目的根目录创建 .vscode&#x2F;c_cpp_properties.json 文件，复制以下内容到 json 文件中。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;edgetx-arm-none-eabi&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;compileCommands&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./build/arm-none-eabi/compile_commands.json&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">        </span><br><span class="line">    <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="number">4</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>至此用 VS Code 打开 edgetx 就可以跳转了。</p>
-<h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><p>使用 linux 操作系统（windows下无法编译，原因未知）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在edgetx目录下创建python虚拟环境(需要自行安装)</span></span><br><span class="line">virtualenv venv</span><br><span class="line"><span class="comment"># 运行</span></span><br><span class="line"><span class="built_in">source</span> venv/bin/activate</span><br><span class="line"><span class="comment"># 更新pip</span></span><br><span class="line">pip install --upgrade pip</span><br><span class="line"><span class="comment"># 下载包</span></span><br><span class="line">pip install pillow lz4 jinja2</span><br></pre></td></tr></table></figure>
-
-<p>python 虚拟环境配置完毕后需要<strong>将 build 目录删除</strong>，重新 cmake 构建。因为 cmake 生成的 makefile 使用绝对路径，不重新构建依然采用原来的 python 环境。</p>
 
         </div>
 
@@ -270,12 +270,6 @@
                 <span>Tag(s):</span>
                 <span class="tag">
                     
-                    
-                        <a href="/tags/daplink/"># daplink</a>
-                    
-                        <a href="/tags/compile/"># compile</a>
-                    
-                        
                 </span>
             </div>
             <div>
@@ -286,10 +280,8 @@
         </section>
         <section class="post-nav">
             
-                <a class="prev" rel="prev" href="/2025/01/24/code-arduino/">code-arduino</a>
             
-            
-            <a class="next" rel="next" href="/2025/01/05/daplink-compile/">DAPLink固件编译</a>
+            <a class="next" rel="next" href="/2025/01/05/edgetx-compile/">EdgeTX固件编译</a>
             
         </section>
 
